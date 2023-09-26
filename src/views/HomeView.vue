@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Table from '../components/Table.vue'
+import Table from '../components/TableItem.vue'
 import { RouterLink } from 'vue-router'
 </script>
 
