@@ -28,7 +28,6 @@ function view() {
 }
 
 function edit(id: number) {
-  console.log(id)
   router.push(`/edit/${id}`)
 }
 
@@ -66,24 +65,26 @@ onMounted(() => {
           Barat.
         </p>
       </div>
-      <div class="mt-3 md:mt-0 flex flex-col gap-4">
-        <Button class="flex gap-2 items-center" @click="logout"
-          >Logout
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
-            />
-          </svg>
-        </Button>
+      <div class="mt-5 md:mt-0 flex flex-col gap-4">
+        <div>
+          <Button class="flex gap-2 items-center" @click="logout"
+            >Logout
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+              />
+            </svg>
+          </Button>
+        </div>
         <RouterLink to="/add"><Button>Tambahkan</Button> </RouterLink>
       </div>
     </div>
@@ -117,70 +118,72 @@ onMounted(() => {
     @onClose="openViewModal = false"
     size="3xl"
   >
-    <table class="w-full table-auto">
-      <tbody>
-        <tr>
-          <td class="font-semibold border px-3 py-2 whitespace-nowrap">Nama</td>
-          <td class="border px-3 py-2 whitespace-nowrap">Fikri</td>
-        </tr>
-        <tr>
-          <td class="font-semibold border px-3 py-2 whitespace-nowrap">Umur</td>
-          <td class="border px-3 py-2 whitespace-nowrap">21</td>
-        </tr>
-        <tr>
-          <td class="font-semibold border px-3 py-2 whitespace-nowrap">Jenis Kelamin</td>
-          <td class="border px-3 py-2 whitespace-nowrap">Laki-Laki</td>
-        </tr>
-        <tr>
-          <td class="font-semibold border px-3 py-2 whitespace-nowrap">
-            Penghasilan sebelum pandemi
-          </td>
-          <td class="border px-3 py-2 whitespace-nowrap">123123</td>
-        </tr>
-        <tr>
-          <td class="font-semibold border px-3 py-2 whitespace-nowrap">
-            Penghasilan setelah pandemi
-          </td>
-          <td class="border px-3 py-2 whitespace-nowrap">123123s</td>
-        </tr>
-        <tr>
-          <td class="font-semibold border px-3 py-2 whitespace-nowrap">NIK</td>
-          <td class="border px-3 py-2 whitespace-nowrap">123123</td>
-        </tr>
-        <tr>
-          <td class="font-semibold border px-3 py-2 whitespace-nowrap">KK</td>
-          <td class="border px-3 py-2 whitespace-nowrap">123123123</td>
-        </tr>
-        <tr>
-          <td class="font-semibold border px-3 py-2 whitespace-nowrap">Provinsi</td>
-          <td class="border px-3 py-2 whitespace-nowrap">JAWA BARAT</td>
-        </tr>
-        <tr>
-          <td class="font-semibold border px-3 py-2 whitespace-nowrap">Kab/Kota</td>
-          <td class="border px-3 py-2 whitespace-nowrap">KAB. MAJALENGKA</td>
-        </tr>
-        <tr>
-          <td class="font-semibold border px-3 py-2 whitespace-nowrap">Kecamatan</td>
-          <td class="border px-3 py-2 whitespace-nowrap">KERTAJATI</td>
-        </tr>
-        <tr>
-          <td class="font-semibold border px-3 py-2 whitespace-nowrap">Kelurahan/Desa</td>
-          <td class="border px-3 py-2 whitespace-nowrap">PALASAH</td>
-        </tr>
-        <tr>
-          <td class="font-semibold border px-3 py-2 whitespace-nowrap">RT</td>
-          <td class="border px-3 py-2 whitespace-nowrap">10</td>
-        </tr>
-        <tr>
-          <td class="font-semibold border px-3 py-2 whitespace-nowrap">RW</td>
-          <td class="border px-3 py-2 whitespace-nowrap">5</td>
-        </tr>
-        <tr>
-          <td class="font-semibold border px-3 py-2 whitespace-nowrap">Alamat</td>
-          <td class="border px-3 py-2 whitespace-nowrap">DUSUN BANGGALA</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="overflow-x-auto">
+      <table class="w-full table-auto">
+        <tbody>
+          <tr>
+            <td class="font-semibold border px-3 py-2 whitespace-nowrap">Nama</td>
+            <td class="border px-3 py-2 whitespace-nowrap">Fikri</td>
+          </tr>
+          <tr>
+            <td class="font-semibold border px-3 py-2 whitespace-nowrap">Umur</td>
+            <td class="border px-3 py-2 whitespace-nowrap">21</td>
+          </tr>
+          <tr>
+            <td class="font-semibold border px-3 py-2 whitespace-nowrap">Jenis Kelamin</td>
+            <td class="border px-3 py-2 whitespace-nowrap">Laki-Laki</td>
+          </tr>
+          <tr>
+            <td class="font-semibold border px-3 py-2 whitespace-nowrap">
+              Penghasilan sebelum pandemi
+            </td>
+            <td class="border px-3 py-2 whitespace-nowrap">123123</td>
+          </tr>
+          <tr>
+            <td class="font-semibold border px-3 py-2 whitespace-nowrap">
+              Penghasilan setelah pandemi
+            </td>
+            <td class="border px-3 py-2 whitespace-nowrap">123123s</td>
+          </tr>
+          <tr>
+            <td class="font-semibold border px-3 py-2 whitespace-nowrap">NIK</td>
+            <td class="border px-3 py-2 whitespace-nowrap">123123</td>
+          </tr>
+          <tr>
+            <td class="font-semibold border px-3 py-2 whitespace-nowrap">KK</td>
+            <td class="border px-3 py-2 whitespace-nowrap">123123123</td>
+          </tr>
+          <tr>
+            <td class="font-semibold border px-3 py-2 whitespace-nowrap">Provinsi</td>
+            <td class="border px-3 py-2 whitespace-nowrap">JAWA BARAT</td>
+          </tr>
+          <tr>
+            <td class="font-semibold border px-3 py-2 whitespace-nowrap">Kab/Kota</td>
+            <td class="border px-3 py-2 whitespace-nowrap">KAB. MAJALENGKA</td>
+          </tr>
+          <tr>
+            <td class="font-semibold border px-3 py-2 whitespace-nowrap">Kecamatan</td>
+            <td class="border px-3 py-2 whitespace-nowrap">KERTAJATI</td>
+          </tr>
+          <tr>
+            <td class="font-semibold border px-3 py-2 whitespace-nowrap">Kelurahan/Desa</td>
+            <td class="border px-3 py-2 whitespace-nowrap">PALASAH</td>
+          </tr>
+          <tr>
+            <td class="font-semibold border px-3 py-2 whitespace-nowrap">RT</td>
+            <td class="border px-3 py-2 whitespace-nowrap">10</td>
+          </tr>
+          <tr>
+            <td class="font-semibold border px-3 py-2 whitespace-nowrap">RW</td>
+            <td class="border px-3 py-2 whitespace-nowrap">5</td>
+          </tr>
+          <tr>
+            <td class="font-semibold border px-3 py-2 whitespace-nowrap">Alamat</td>
+            <td class="border px-3 py-2 whitespace-nowrap">DUSUN BANGGALA</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </Modal>
 
   <Modal

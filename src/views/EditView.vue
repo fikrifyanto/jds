@@ -230,7 +230,7 @@ onBeforeRouteLeave(() => {
 
 <template>
   <main>
-    <div class="items-start justify-between md:flex">
+    <div class="items-start justify-between md:flex mt-4 md:mt-0">
       <div class="max-w-lg">
         <h3 class="text-gray-800 text-xl font-bold sm:text-2xl">Edit Penerima Bantuan Sosial</h3>
         <p class="text-gray-600 mt-2">
@@ -241,7 +241,7 @@ onBeforeRouteLeave(() => {
 
     <Step :steps="steps" :current="currentStep" @clickBadge="(value) => dataStore.setStep(value)">
       <template #identity>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 mt-10">
           <div class="col-span-1 flex flex-col gap-5">
             <InputForm
               label="Nama"
@@ -297,7 +297,7 @@ onBeforeRouteLeave(() => {
         >
       </template>
       <template #file>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 mt-10">
           <div class="col-span-1 flex flex-col gap-5">
             <InputForm
               label="NIK"
@@ -327,7 +327,7 @@ onBeforeRouteLeave(() => {
         >
       </template>
       <template #address>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 mt-10">
           <div class="col-span-1 flex flex-col gap-5">
             <SelectForm
               :search="true"

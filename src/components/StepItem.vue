@@ -28,13 +28,13 @@ function toPrevious(previous: number) {
 }
 </script>
 <template>
-  <div class="my-20">
-    <ul aria-label="Steps" class="items-center text-gray-600 font-medium md:flex">
+  <div class="mt-10 md:my-20">
+    <ul aria-label="Steps" class="items-center text-gray-600 font-medium flex">
       <template :key="i" v-for="(step, i) in props.steps">
-        <li aria-current="false" class="flex gap-x-3 md:flex-col md:flex-1 md:gap-x-0">
-          <div class="flex flex-col items-center md:flex-row md:flex-1">
+        <li aria-current="false" class="flex flex-col flex-1 gap-x-0">
+          <div class="flex items-center flex-row flex-1">
             <hr
-              class="h-12 border md:w-full md:h-auto"
+              class="border w-full h-auto"
               :class="{
                 'border-transparent': parseInt(i) == 0,
                 'border-indigo-600': parseInt(i) <= props.current
@@ -59,7 +59,7 @@ function toPrevious(previous: number) {
               <CheckIcon v-if="parseInt(i) < props.current" />
             </div>
             <hr
-              class="h-12 border md:w-full md:h-auto"
+              class="border w-full h-auto"
               :class="{
                 'border-transparent': parseInt(i) == props.steps?.length - 1,
                 'border-indigo-600': parseInt(i) <= props.current

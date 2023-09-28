@@ -27,21 +27,21 @@
                 @click="emit('onView', (item as any)._id)"
                 href="javascript:void(0)"
                 v-if="key == '_view'"
-                class="text-indigo-600"
+                class="text-indigo-600 px-2"
                 >Lihat</a
               >
               <a
                 @click="emit('onEdit', (item as any)._id)"
                 href="javascript:void(0)"
                 v-if="key == '_edit'"
-                class="text-yellow-600"
+                class="text-yellow-600 px-2"
                 >Edit</a
               >
               <a
                 @click="emit('onDelete', (item as any)._id)"
                 href="javascript:void(0)"
                 v-if="key == '_delete'"
-                class="text-red-600"
+                class="text-red-600 px-2"
                 >Hapus</a
               >
             </template>
