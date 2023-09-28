@@ -153,6 +153,8 @@ function submit() {
       descSubmitStatus.value = desc
       openModalSubmitStatus.value = true
 
+      dataStore.clear()
+
       let time = 4
       const timeout = setInterval(() => {
         time = time - 1
@@ -170,7 +172,6 @@ function submit() {
       openModalSubmitStatus.value = true
     }
 
-    dataStore.clear()
     loadSubmit.value = false
   }, 1500)
 }
