@@ -3,12 +3,9 @@
     <div v-show="open" class="fixed inset-0 z-10 overflow-y-auto">
       <div class="fixed inset-0 w-full h-full bg-black opacity-40"></div>
       <div class="flex items-center min-h-screen px-4 py-8">
-        <div class="relative w-full max-w-lg mx-auto bg-white rounded-md shadow-lg">
+        <div class="relative w-full mx-auto bg-white rounded-md shadow-lg" :class="[sizeClass]">
           <template v-if="props.variant == 'default'">
-            <div
-              class="flex items-center justify-between p-4"
-              :class="{ 'border-b': confirmButton || cancelButton }"
-            >
+            <div class="flex items-center justify-between p-4 border-b">
               <h4 class="text-lg font-medium text-gray-800">{{ props.title }}</h4>
               <button
                 @click="openModal = false"
@@ -186,10 +183,16 @@ const props = defineProps({
   loadSubmit: {
     type: Boolean,
     default: false
+  },
+  size: {
+    type: String,
+    default: 'xl'
   }
 })
 
 const openModal = ref<boolean>(false)
+
+const sizeClass = `max-w-${props.size}`
 
 watch(
   () => props.open,

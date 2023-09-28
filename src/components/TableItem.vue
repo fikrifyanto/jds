@@ -3,37 +3,66 @@
     <table class="w-full table-auto text-sm text-left">
       <thead class="bg-gray-50 text-gray-600 font-medium border-b">
         <tr>
-          <th class="py-3 px-6">Username</th>
-          <th class="py-3 px-6">Email</th>
-          <th class="py-3 px-6">Position</th>
-          <th class="py-3 px-6">Salary</th>
+          <th class="py-3 px-6" v-for="(header, index) in props.headers" :key="index">
+            {{ header }}
+          </th>
           <th class="py-3 px-6"></th>
         </tr>
       </thead>
       <tbody class="text-gray-600 divide-y">
-        <template :key="i" v-for="i in 10">
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap">{item.name}</td>
-            <td class="px-6 py-4 whitespace-nowrap">{item.email}</td>
-            <td class="px-6 py-4 whitespace-nowrap">{item.position}</td>
-            <td class="px-6 py-4 whitespace-nowrap">{item.salary}</td>
-            <td class="text-right px-6 whitespace-nowrap">
+        <tr v-for="(item, index) in props.items" :key="index">
+          <td
+            :class="{
+              'px-6 py-4 whitespace-nowrap': !['_id', '_edit', '_view', '_delete'].includes(key),
+              'w-14': ['_id', '_edit', '_view', '_delete'].includes(key)
+            }"
+            v-for="(value, key) in item"
+            :key="key"
+          >
+            <template v-if="!['_id', '_edit', '_view', '_delete'].includes(key)">
+              {{ value }}
+            </template>
+            <template v-else-if="['_edit', '_view', '_delete'].includes(key)">
               <a
-                href="javascript:void()"
-                class="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
+                @click="emit('onView', (item as any)._id)"
+                href="javascript:void(0)"
+                v-if="key == '_view'"
+                class="text-indigo-600"
+                >Lihat</a
               >
-                Edit
-              </a>
-              <button
-                href="javascript:void()"
-                class="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
+              <a
+                @click="emit('onEdit', (item as any)._id)"
+                href="javascript:void(0)"
+                v-if="key == '_edit'"
+                class="text-yellow-600"
+                >Edit</a
               >
-                Delete
-              </button>
-            </td>
-          </tr>
-        </template>
+              <a
+                @click="emit('onDelete', (item as any)._id)"
+                href="javascript:void(0)"
+                v-if="key == '_delete'"
+                class="text-red-600"
+                >Hapus</a
+              >
+            </template>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
 </template>
+
+<script setup lang="ts">
+const emit = defineEmits(['onView', 'onEdit', 'onDelete'])
+
+const props = defineProps({
+  headers: {
+    type: Array,
+    required: true
+  },
+  items: {
+    type: Array,
+    required: true
+  }
+})
+</script>
