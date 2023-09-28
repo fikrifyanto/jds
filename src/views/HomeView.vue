@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Table from '../components/TableItem.vue'
-import Button from '../components/ButtonItem.vue'
+import Table from '@/components/TableItem.vue'
+import Button from '@/components/ButtonItem.vue'
 import { RouterLink } from 'vue-router'
 </script>
 

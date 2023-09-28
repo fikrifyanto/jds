@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { computed, onMounted, onUpdated, ref } from 'vue'
 import InputForm from '@/components/Form/InputForm.vue'
-import SelectForm from '../components/Form/SelectForm.vue'
+import SelectForm from '@/components/Form/SelectForm.vue'
 import Button from '@/components/ButtonItem.vue'
 import Step from '@/components/StepItem.vue'
 import Textarea from '@/components/Form/TextareaForm.vue'
 import FileForm from '@/components/Form/FileForm.vue'
 import { useDataStore } from '@/stores/data'
 import { onBeforeRouteLeave } from 'vue-router'
+import Modal from '@/components/ModalItem.vue'
+import router from '@/router'
 
 const dataStore = useDataStore()
 
@@ -131,8 +133,50 @@ function selectVillage(value: number) {
 }
 
 /** Submit **/
+const loadSubmit = ref<boolean>(false)
+const submitted = ref<boolean>(false)
+const openModalConfirm = ref<boolean>(false)
+const openModalSubmitStatus = ref<boolean>(false)
+const titleSubmitStatus = ref<string>('')
+const descSubmitStatus = ref<string>('')
 function submit() {
-  console.log(dataStore.data)
+  loadSubmit.value = true
+
+  setTimeout(() => {
+    openModalConfirm.value = false
+
+    if (getRandomInt(2)) {
+      submitted.value = true
+
+      const desc = 'Data warga penerima bansos telah ditambahkan!'
+      titleSubmitStatus.value = 'Berhasil!'
+      descSubmitStatus.value = desc
+      openModalSubmitStatus.value = true
+
+      let time = 4
+      const timeout = setInterval(() => {
+        time = time - 1
+        descSubmitStatus.value = desc + '<br/>' + `Kembali dalam ${time}`
+        if (time == 0) {
+          clearInterval(timeout)
+          router.push('/')
+        }
+      }, 1000)
+    } else {
+      submitted.value = false
+
+      titleSubmitStatus.value = 'Gagal!'
+      descSubmitStatus.value = 'Terjadi kesalahan! Silahkan coba beberapa saat lagi.'
+      openModalSubmitStatus.value = true
+    }
+
+    dataStore.clear()
+    loadSubmit.value = false
+  }, 1500)
+}
+
+function getRandomInt(max: number) {
+  return Math.floor(Math.random() * max)
 }
 
 function updateAddressOptions() {
@@ -342,11 +386,38 @@ onBeforeRouteLeave(() => {
             !dataStore.data.rw ||
             !dataStore.data.address
           "
-          @click="submit"
+          @click="openModalConfirm = true"
           class="mx-auto block w-64 mt-10"
           >Submit</Button
         >
       </template>
     </Step>
   </main>
+
+  <Modal
+    @onConfirm="submit"
+    @onClose="openModalConfirm = false"
+    confirmButtonName="Setuju"
+    cancelButtonName="Batal"
+    title="Pernyataan"
+    :open="openModalConfirm"
+    :loadSubmit="loadSubmit"
+  >
+    <p>
+      Saya menyatakan bahwa data yang diisikan adalah benar dan siap mempertanggungjawabkan apabila
+      ditemukan ketidaksesuaian dalam data tersebut.
+    </p>
+  </Modal>
+
+  <Modal
+    :variant="submitted ? 'success' : 'error'"
+    @onConfirm="openModalSubmitStatus = false"
+    :confirmButton="!submitted"
+    confirmButtonName="OK"
+    :cancelButton="false"
+    :title="titleSubmitStatus"
+    :open="openModalSubmitStatus"
+  >
+    <p v-html="descSubmitStatus" />
+  </Modal>
 </template>
