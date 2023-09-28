@@ -6,7 +6,7 @@
       :placeholder="props.placeholder"
       :value="props.value"
       v-model="inputed"
-      class="w-full text-gray-500 outline-none bg-transparent flex items-center p-2.5 border rounded-md focus:border-indigo-600"
+      class="w-full text-gray-500 outline-none bg-transparent flex items-center p-2.5 border rounded-md focus:border-indigo-600 bg-white"
     />
   </div>
 </template>
