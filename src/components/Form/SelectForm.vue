@@ -1,93 +1,113 @@
 <script setup lang="ts">
+import SearchIcon from '../Icon/SearchIcon.vue'
+import OptionIcon from '../Icon/OptionIcon.vue'
 import CheckIcon from '../Icon/CheckIcon.vue'
+import { computed, ref, watch } from 'vue'
+
+const emit = defineEmits(['onSearch', 'onSelect', 'onOpen'])
 
 const props = defineProps({
+  label: {
+    type: String
+  },
+  placeholder: {
+    type: String,
+    default: ''
+  },
   search: {
     type: Boolean,
     default: false
+  },
+  options: {
+    type: Object,
+    default: () => {
+      return []
+    }
+  },
+  value: {
+    type: [Number, String],
+    default: null
   }
 })
+
+const openSearch = ref<boolean>(false)
+
+const selected = computed(() => {
+  const selected = props.options.filter((option: any) => {
+    return option.id == props.value
+  })
+
+  if (selected.length) {
+    return selected[0]
+  }
+
+  return null
+})
+
+watch(
+  () => openSearch.value,
+  () => {
+    if (openSearch.value) {
+      emit('onOpen')
+    }
+  }
+)
+
+function select(option: number) {
+  openSearch.value = false
+  emit('onSelect', option)
+}
 </script>
 
 <template>
   <template v-if="props.search">
-    <div class="relative max-w-xs px-4 mx-auto mt-12 text-[15px]">
-      <button
-        class="flex items-center justify-between w-full px-3 py-2 text-gray-500 bg-white border rounded-md shadow-sm cursor-default outline-none focus:border-indigo-600"
-        aria-haspopup="true"
-        aria-expanded="true"
-      >
-        Select a country
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="w-6 h-6 text-gray-400"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+    <div>
+      <label for="email" class="block py-3 text-gray-500">{{ props.label }}</label>
+      <div class="relative text-[15px]">
+        <div
+          @click="openSearch = !openSearch"
+          class="flex items-center justify-between w-full px-3 py-2 text-gray-500 bg-white border rounded-md shadow-sm cursor-default outline-none focus:border-indigo-600"
+          aria-haspopup="true"
+          aria-expanded="true"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="{2}"
-            d="M8 9l4-4 4 4m0 6l-4 4-4-4"
-          />
-        </svg>
-      </button>
+          {{ props.value && selected ? selected.name : props.placeholder }}
+          <OptionIcon />
+        </div>
 
-      <div class="relative w-full">
-        <ul class="absolute w-full mt-3 bg-white border rounded-md shadow-sm" role="listbox">
-          <div class="shadow flex items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6 mx-3 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="{2}"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        <div v-show="openSearch" class="relative w-full">
+          <ul class="w-full mt-3 bg-white border rounded-md shadow-sm" role="listbox">
+            <div :class="{ shadow: options.length }" class="flex items-center">
+              <SearchIcon />
+              <input
+                type="text"
+                placeholder="Search"
+                @input="(value) => emit('onSearch', value)"
+                class="p-2 text-gray-500 w-full rounded-md outline-none"
               />
-            </svg>
-            <input
-              type="text"
-              placeholder="Search"
-              class="p-2 text-gray-500 w-full rounded-md outline-none"
-            />
-          </div>
-          <div class="max-h-64 mt-2 overflow-y-auto">
-            <li
-              class="text-indigo-600 bg-indigo-50 menu-el-js flex items-center justify-between px-3 cursor-default py-2 duration-150 hover:text-indigo-600 hover:bg-indigo-50"
-            >
-              Jakarta
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="w-5 h-5 text-indigo-600"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </li>
-            <li
-              class="flex items-center justify-between px-3 cursor-default py-2 duration-150 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50"
-            >
-              Jakarta
-            </li>
-          </div>
-        </ul>
+            </div>
+            <div v-show="options.length" class="max-h-64 mt-2 overflow-y-auto">
+              <template :key="option.id" v-for="option in props.options">
+                <li
+                  @click="select(option.id)"
+                  class="flex items-center justify-between px-3 cursor-default py-2 duration-150 hover:text-indigo-600 hover:bg-indigo-50"
+                  :class="{
+                    'text-indigo-600 bg-indigo-50': option.id == value,
+                    'text-gray-500': option.id != value
+                  }"
+                >
+                  {{ option.name }}
+                  <CheckIcon v-if="option.id == value" />
+                </li>
+              </template>
+            </div>
+          </ul>
+        </div>
       </div>
     </div>
   </template>
   <template v-else>
     <div>
-      <label for="email" class="block py-3 text-gray-500"> Your Email </label>
+      <label for="email" class="block py-3 text-gray-500">{{ props.label }}</label>
       <div class="relative">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -102,12 +122,15 @@ const props = defineProps({
           />
         </svg>
         <select
-          class="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
+          @change="(value: any) => emit('onSelect', value?.target?.value)"
+          class="w-full p-2 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
         >
-          <option>Project manager</option>
-          <option>Software engineer</option>
-          <option>IT manager</option>
-          <option>UI / UX designer</option>
+          <option selected disabled>{{ props.placeholder }}</option>
+          <template :key="option.id" v-for="option in options">
+            <option :selected="option.id == props.value" :value="option.id">
+              {{ option.name }}
+            </option>
+          </template>
         </select>
       </div>
     </div>
