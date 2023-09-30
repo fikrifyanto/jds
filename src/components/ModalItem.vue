@@ -192,7 +192,7 @@ const props = defineProps({
 
 const openModal = ref<boolean>(false)
 
-const sizeClass = `max-w-${props.size}`
+const sizeClass = `${props.size}`
 
 watch(
   () => props.open,

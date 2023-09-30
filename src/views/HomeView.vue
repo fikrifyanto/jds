@@ -6,19 +6,63 @@ import { RouterLink } from 'vue-router'
 import Modal from '@/components/ModalItem.vue'
 import router from '@/router'
 
-const tableHeaders = ['Nama', 'Usia', 'Alamat']
+const tableHeaders = [
+  'NIK',
+  'Nama',
+  'Umur',
+  'Jenis Kelamin',
+  'Penghasilan sebelum pandemi',
+  'Penghasilan setelah pandemi'
+]
 const tableData = [
-  { Nama: 'John', Usia: 30, Alamat: 'New York', _id: 1, _edit: true, _view: true, _delete: true },
   {
-    Nama: 'Alice',
-    Usia: 25,
-    Alamat: 'Los Angeles',
-    _id: 2,
+    Nik: 1231312312,
+    Nama: 'Fikri',
+    Umur: 21,
+    'Jenis Kelamin': 'Laki-Laki',
+    'Penghasilan sebelum pandemi': 123123,
+    'Penghasilan setelah pandemi': 1231234,
+    _id: 1,
     _edit: true,
     _view: true,
     _delete: true
   },
-  { Nama: 'Bob', Usia: 35, Alamat: 'Chicago', _id: 3, _edit: true, _view: true, _delete: true }
+  {
+    Nik: 9876998878,
+    Nama: 'Joni',
+    Umur: 19,
+    'Jenis Kelamin': 'Laki-Laki',
+    'Penghasilan sebelum pandemi': 7899899,
+    'Penghasilan setelah pandemi': 786778,
+    _id: 1,
+    _edit: true,
+    _view: true,
+    _delete: true
+  },
+  {
+    Nik: 897978979,
+    Nama: 'Tina',
+    Umur: 21,
+    'Jenis Kelamin': 'Perempuan',
+    'Penghasilan sebelum pandemi': 70000,
+    'Penghasilan setelah pandemi': 500000,
+    _id: 1,
+    _edit: true,
+    _view: true,
+    _delete: true
+  },
+  {
+    Nik: 2543636654,
+    Nama: 'Asep',
+    Umur: 25,
+    'Jenis Kelamin': 'Laki-Laki',
+    'Penghasilan sebelum pandemi': 80000,
+    'Penghasilan setelah pandemi': 90000,
+    _id: 1,
+    _edit: true,
+    _view: true,
+    _delete: true
+  }
 ]
 
 /** View **/
@@ -105,6 +149,7 @@ onMounted(() => {
     :open="openDeleteModal"
     @onClose="openDeleteModal = false"
     @onConfirm="deleting"
+    size="max-w-xl"
   >
     <p>Data yang dihapus tidak dapat dikembalikan!</p>
   </Modal>
@@ -116,7 +161,7 @@ onMounted(() => {
     :open="openViewModal"
     @onConfirm="deleting"
     @onClose="openViewModal = false"
-    size="3xl"
+    size="max-w-3xl"
   >
     <div class="overflow-x-auto">
       <table class="w-full table-auto">
@@ -193,6 +238,7 @@ onMounted(() => {
     title="Berhasil!"
     @onClose="deleted = false"
     :open="deleted"
+    size="max-w-xl"
   >
     <p>Berhasil menghapus data!</p>
   </Modal>

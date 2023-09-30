@@ -12,6 +12,7 @@
       <tbody class="text-gray-600 divide-y">
         <tr v-for="(item, index) in props.items" :key="index">
           <td
+            class="pr-4"
             :class="{
               'px-6 py-4 whitespace-nowrap': !['_id', '_edit', '_view', '_delete'].includes(key),
               'w-14': ['_id', '_edit', '_view', '_delete'].includes(key)

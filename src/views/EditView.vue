@@ -420,6 +420,7 @@ onBeforeRouteLeave(() => {
     title="Pernyataan"
     :open="openModalConfirm"
     :loadSubmit="loadSubmit"
+    size="max-w-xl"
   >
     <p>
       Saya menyatakan bahwa data yang diisikan adalah benar dan siap mempertanggungjawabkan apabila
@@ -435,6 +436,7 @@ onBeforeRouteLeave(() => {
     :cancelButton="false"
     :title="titleSubmitStatus"
     :open="openModalSubmitStatus"
+    size="max-w-xl"
   >
     <p v-html="descSubmitStatus" />
   </Modal>
