@@ -58,7 +58,7 @@ export const useDataStore = defineStore('data', {
       this.nik = nik
     },
 
-    setNikFile(nikFile: File | null) {
+    setNikFile(nikFile: string | null) {
       this.nikFile = nikFile
     },
 
@@ -66,7 +66,7 @@ export const useDataStore = defineStore('data', {
       this.kk = kk
     },
 
-    setKkFile(kkFile: File | null) {
+    setKkFile(kkFile: string | null) {
       this.kkFile = kkFile
     },
 

@@ -4,7 +4,7 @@ import OptionIcon from '../Icon/OptionIcon.vue'
 import CheckIcon from '../Icon/CheckIcon.vue'
 import { computed, ref, watch } from 'vue'
 
-const emit = defineEmits(['onSearch', 'onSelect', 'onOpen'])
+const emit = defineEmits(['onSelect', 'onOpen'])
 
 const props = defineProps({
   label: {
@@ -57,6 +57,25 @@ function select(option: number) {
   openSearch.value = false
   emit('onSelect', option)
 }
+
+function filter(event: Event) {
+  const target = event.target as HTMLInputElement
+
+  const lists = target.parentElement?.nextElementSibling?.children
+
+  if (lists) {
+    for (const list of lists) {
+      const province = list.textContent
+      const like = province?.toUpperCase().includes(target.value.toUpperCase())
+
+      if (!like) {
+        list.classList.add('hidden')
+      } else {
+        list.classList.remove('hidden')
+      }
+    }
+  }
+}
 </script>
 
 <template>
@@ -81,11 +100,11 @@ function select(option: number) {
               <input
                 type="text"
                 placeholder="Search"
-                @input="(value) => emit('onSearch', value)"
+                @input="filter"
                 class="p-2 text-gray-500 w-full rounded-md outline-none"
               />
             </div>
-            <div v-show="options.length" class="max-h-64 mt-2 overflow-y-auto">
+            <ul v-show="options.length" class="max-h-64 mt-2 overflow-y-auto">
               <template :key="option.id" v-for="option in props.options">
                 <li
                   @click="select(option.id)"
@@ -99,7 +118,7 @@ function select(option: number) {
                   <CheckIcon v-if="option.id == value" />
                 </li>
               </template>
-            </div>
+            </ul>
           </ul>
         </div>
       </div>

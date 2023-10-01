@@ -289,7 +289,13 @@ onBeforeRouteLeave(() => {
               :value="dataStore.data.nik"
               @update:value="(value) => dataStore.setNik(value)"
             />
-            <FileForm label="Foto KTP" type="text" placeholder="Foto KTP" />
+            <FileForm
+              label="Foto KTP"
+              type="text"
+              placeholder="Foto KTP"
+              :value="dataStore.data.nikFile"
+              @onChange="(value) => dataStore.setNikFile(value)"
+            />
           </div>
           <div class="col-span-1 flex flex-col gap-5">
             <InputForm
@@ -299,11 +305,22 @@ onBeforeRouteLeave(() => {
               :value="dataStore.data.kk"
               @update:value="(value) => dataStore.setKk(value)"
             />
-            <FileForm label="Foto Kartu Keluarga" type="text" placeholder="Foto Kartu Keluarga" />
+            <FileForm
+              label="Foto Kartu Keluarga"
+              type="text"
+              placeholder="Foto Kartu Keluarga"
+              :value="dataStore.data.kkFile"
+              @onChange="(value) => dataStore.setKkFile(value)"
+            />
           </div>
         </div>
         <Button
-          :disabled="!dataStore.data.nik || !dataStore.data.kk"
+          :disabled="
+            !dataStore.data.nik ||
+            !dataStore.data.kk ||
+            !dataStore.data.nikFile ||
+            !dataStore.data.kkFile
+          "
           @click="dataStore.setStep(2)"
           class="mx-auto block w-64 mt-10"
           >Lanjut</Button
@@ -316,7 +333,6 @@ onBeforeRouteLeave(() => {
               :search="true"
               label="Provinsi"
               placeholder="Pilih Provinsi"
-              @onSearch="searchProvince"
               @onOpen="searchProvince"
               @onSelect="selectProvince"
               :value="selectedProvince"
@@ -326,7 +342,6 @@ onBeforeRouteLeave(() => {
               :search="true"
               label="Kab/Kota"
               placeholder="Pilih Kab/Kota"
-              @onSearch="searchRegency"
               @onOpen="searchRegency"
               @onSelect="selectRegency"
               :value="selectedRegency"
@@ -336,7 +351,6 @@ onBeforeRouteLeave(() => {
               :search="true"
               label="Kecamatan"
               placeholder="Pilih Kecamatan"
-              @onSearch="searchDistrict"
               @onOpen="searchDistrict"
               @onSelect="selectDistrict"
               :value="selectedDistrict"
@@ -346,7 +360,6 @@ onBeforeRouteLeave(() => {
               :search="true"
               label="Kelurahan/Desa"
               placeholder="Pilih Kelurahan/Desa"
-              @onSearch="searchVillage"
               @onOpen="searchVillage"
               @onSelect="selectVillage"
               :value="selectedVillage"
